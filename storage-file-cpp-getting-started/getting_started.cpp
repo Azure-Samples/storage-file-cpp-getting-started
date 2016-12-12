@@ -113,41 +113,44 @@ void getting_started::run_file_operations(utility::string_t connection_string) {
             // Upload a file to the share.
             std::cout << "Uploading file to share.\n";
 
-			FILE *fptr;
+            FILE *fptr;
 
-			#ifdef _WIN32
+            #ifdef _WIN32
                 
                 errno_t err = fopen_s(&fptr, utility::conversions::to_utf8string(test_file).c_str(), "r");
 
-				if (err == 0)
-				{
-					// Upload from the local file to the file share in azure.
-					cloud_file_sample.upload_from_file(test_file);
-					std::cout << "Successfully uploaded file to share.\n";
-		        }
-				else
-				{
-					std::cout << "File not found, so not uploaded.\n";
-					std::cout << err;
-				}
+                if (err == 0)
+                {
+                    
+                    // Upload from the local file to the file share in azure.
+                    cloud_file_sample.upload_from_file(test_file);
+                    std::cout << "Successfully uploaded file to share.\n";
+		        
+                }
+                else
+                {
+                    std::cout << "File not found, so not uploaded.\n";
+                    std::cout << err;
+                }
 
             #else
 				
-			    fptr = fopen(utility::conversions::to_utf8string(test_file).c_str(), "r");
+                fptr = fopen(utility::conversions::to_utf8string(test_file).c_str(), "r");
 			
-				if (fptr != NULL)
-				{
-					// Upload from the local file to the file share in azure.
-					cloud_file_sample.upload_from_file(test_file);
-					std::cout << "Successfully uploaded file to share.\n";
-				}
-				else
-				{
-					std::cout << "File not found, so not uploaded.\n";
-				}
+                if (fptr != NULL)
+                {
+
+                    // Upload from the local file to the file share in azure.
+                    cloud_file_sample.upload_from_file(test_file);
+                    std::cout << "Successfully uploaded file to share.\n";
+				
+                }
+                else
+                {
+                    std::cout << "File not found, so not uploaded.\n";
+                }
 
             #endif
-
 
             // *************************************************************
             // **** Get list of all files/directories on the file share*****//
